@@ -28,8 +28,8 @@ export const projects: Project[] = [
       'I founded Aiyou and, together with my team, grew it into an application boasting over 2 million users.',
     ],
     image: '/images/aiyou.png',
-    blogUrl: post('aiyou'),
-    pending: true,
+    blogUrl: post('aiyou-user-growth'),
+    pending: false,
   },
   {
     title: 'WeChat Red Packet Assistant',
@@ -48,8 +48,8 @@ export const projects: Project[] = [
       'This effort boosted MAUs by over 6 million and increased the Day-2 retention rate by 6%.',
     ],
     image: '/images/360-security.png',
-    blogUrl: post('reviving-360-mobile-security'),
-    pending: true,
+    blogUrl: post('revitalizing-360-mobile-security'),
+    pending: false,
   },
   {
     title: 'Missing Children Alert System',
@@ -58,7 +58,7 @@ export const projects: Project[] = [
     ],
     image: '/images/missing-children.png',
     blogUrl: post('missing-children-alert-system'),
-    pending: true,
+    pending: false,
   },
   {
     title: 'TuSimple',
