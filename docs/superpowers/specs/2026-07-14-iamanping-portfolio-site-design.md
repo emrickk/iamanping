@@ -17,8 +17,11 @@ Key facts established during brainstorming:
   point at Wix (ns6/ns7.wixdns.net). No domain transfer needed — this is a
   nameserver + hosting cutover, same shape as theneverless.com.
 - Full content archive exists at `Personal Website/Portfolio/iamanping.com/`
-  (scraped 2026-06-06): 9 articles (Markdown), 4 project case studies (text),
-  page texts, 47 images at original resolution, raw HTML of every page.
+  (scraped 2026-06-06): 9 articles (Markdown), project case studies (3
+  captured + 1 gated: `aiyou.txt` is empty because the Wix page was
+  password-protected; the live Aiyou content was separately extracted by the
+  parallel blog-migration session), page texts, ~48 images at original
+  resolution, raw HTML of every page.
 - The live site's Resume button serves a **Wix placeholder PDF** ("I'M A
   DOCUMENT", md5 acf6bf898dce0fa464e3d98539d71823) — there is no real CV on the
   site. Verified against both the archive and the live URL.
@@ -63,9 +66,12 @@ implementation from raw HTML nav structure).
 
 ### Project cards (5, exact Wix copy from archive)
 
+Card copy renders **verbatim from `content/pages/projects.txt`**; the metric
+column below is planning shorthand, not render copy.
+
 | Project | Metric line | "Read more" target |
 |---|---|---|
-| Aiyou | 2M+ users, 50K→200K DAUs | blog case study (pending from parallel session) |
+| Aiyou | 2M+ users (home page copy: 0→200K DAUs) | blog case study (pending from parallel session) |
 | WeChat Red Packet Assistant | 20M+ users | blog post `wechat-red-packet-assistant` (live) |
 | Revitalizing 360 Mobile Security | +6M MAU, +6% D2 retention | blog case study (pending) |
 | Missing Children Alert System | first Amber-like system in China | blog case study (pending) |
