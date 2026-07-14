@@ -1,0 +1,19 @@
+{
+  "name": "iamanping",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "node --test tests/",
+    "check-links": "node scripts/check-links.mjs",
+    "check-links:strict": "node scripts/check-links.mjs --strict"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.2.1",
+    "@fontsource/poppins": "^5.1.0",
+    "astro": "^5.0.0"
+  }
+}
