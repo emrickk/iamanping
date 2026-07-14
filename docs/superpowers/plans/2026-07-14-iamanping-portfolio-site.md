@@ -52,7 +52,10 @@
 
 Pending slugs are being created by a parallel blog-migration session; `pending: true` entries are exempt from the link checker until the launch gate (Task 15).
 
-- Project card copy renders **verbatim** from `$ARCHIVE/content/pages/projects.txt` (strip U+200B zero-width spaces). Home hero copy from `$ARCHIVE/content/pages/home.txt`.
+- Project card copy renders **verbatim** from `$ARCHIVE/content/pages/projects.txt` (strip U+200B zero-width spaces). Home hero copy from `$ARCHIVE/content/pages/home.txt`. One deliberate normalization: the archive's "0 to 200, 000 DAUs" (stray space is a scrape artifact) renders as "0 to 200,000 DAUs".
+- Articles page = **card gallery** matching the archived Wix blog index: title, one-line excerpt, "Anping Wang", date, "N min read" per card. Read-time = ⌈words/300⌉ (reproduces all four Wix-displayed values). Deliberate deviations (recorded in spec): all 9 articles shown (Wix publicly listed only 4); no category filter tabs. During Task 9's raw-page comparison, if `raw/page_blog.html` shows card thumbnails as integral to the design, populate the optional `image` field from `$ARCHIVE/images/` (map media IDs via the raw post HTML) — otherwise text cards.
+- `$ARCHIVE` in commands below is shorthand, not a preset env var. Set it first in any shell that uses it:
+  `ARCHIVE="/Users/anping.wang/Documents/Stuff/AI Space/Personal Website/Portfolio/iamanping.com"`
 
 ---
 
@@ -162,10 +165,12 @@ test('5 projects, all fields present', () => {
   }
 });
 
-test('9 articles, dated, sorted newest first', () => {
+test('9 articles, dated, sorted newest first, with card fields', () => {
   assert.equal(articles.length, 9);
   for (const a of articles) {
     assert.ok(a.title.length > 0);
+    assert.ok(a.summary.length > 10 && a.summary.length < 200);
+    assert.ok(Number.isInteger(a.minutes) && a.minutes >= 1 && a.minutes <= 15);
     assert.match(a.date, /^\d{4}-\d{2}-\d{2}$/);
     assert.match(a.blogUrl, /^https:\/\/theneverless\.com\/posts\/[a-z0-9-]+\/$/);
   }
@@ -264,20 +269,61 @@ export const projects: Project[] = [
 
 export interface Article {
   title: string;
+  summary: string;
+  minutes: number;
   date: string;
   blogUrl: string;
+  image?: string;
 }
 
+// Excerpts: verbatim Wix auto-excerpts for the 4 publicly listed posts
+// ($ARCHIVE/content/pages/blog.txt); first body sentence for the other 5.
 export const articles: Article[] = [
-  { title: 'Don’t Make Me Think (About My Job): Sincerity, Expertise, and B2B Product Design', date: '2025-08-17', blogUrl: post('dont-make-me-think-about-my-job') },
-  { title: 'Balancing Capability and Product Compromise in Light Customization', date: '2024-06-01', blogUrl: post('light-customization-tradeoffs') },
-  { title: 'Product Methodology Systemization Playbook', date: '2024-05-01', blogUrl: post('product-methodology-playbook') },
-  { title: 'Alibaba.com Seller Ecosystem and Decision-Making Observation', date: '2023-12-01', blogUrl: post('alibaba-seller-ecosystem') },
-  { title: 'Product Discussions', date: '2023-11-01', blogUrl: post('product-discussions') },
-  { title: 'Disruptive Technology Company User Research 101', date: '2023-01-12', blogUrl: post('tusimple-user-research-101') },
-  { title: 'Forming Fast Product Problem-solving Iterations', date: '2023-01-03', blogUrl: post('fast-product-iterations') },
-  { title: 'Product Management for Autonomous Driving Platform', date: '2022-07-01', blogUrl: post('autonomous-driving-platform-pm') },
-  { title: 'Leaving Comments?', date: '2021-03-01', blogUrl: post('leaving-comments') },
+  {
+    title: 'Don’t Make Me Think (About My Job): Sincerity, Expertise, and B2B Product Design',
+    summary: 'Originally shared internally with the Alibaba.com product team. All examples are based on public information, and any sensitive data has...',
+    minutes: 5, date: '2025-08-17', blogUrl: post('dont-make-me-think-about-my-job'),
+  },
+  {
+    title: 'Balancing Capability and Product Compromise in Light Customization',
+    summary: 'Context We are currently developing the Light Customization project on Alibaba.com. Within the team, there are two major schools of thought…',
+    minutes: 3, date: '2024-06-01', blogUrl: post('light-customization-tradeoffs'),
+  },
+  {
+    title: 'Product Methodology Systemization Playbook',
+    summary: "What We Want We want every failure to be recorded so that we don't repeat it. We want every success to be summarized so that we can…",
+    minutes: 3, date: '2024-05-01', blogUrl: post('product-methodology-playbook'),
+  },
+  {
+    title: 'Alibaba.com Seller Ecosystem and Decision-Making Observation',
+    summary: 'Goals Observe seller e-commerce strategies and Alibaba.com strategies to summarize seller types and assess how seller behavior affects…',
+    minutes: 5, date: '2023-12-01', blogUrl: post('alibaba-seller-ecosystem'),
+  },
+  {
+    title: 'Product Discussions',
+    summary: 'Here, we discuss how to hold product strategy and design discussions — or, put more concretely, how to run a meeting…',
+    minutes: 3, date: '2023-11-01', blogUrl: post('product-discussions'),
+  },
+  {
+    title: 'Disruptive Technology Company User Research 101',
+    summary: 'The document was a small piece I wrote for junior designers in my team…',
+    minutes: 4, date: '2023-01-12', blogUrl: post('tusimple-user-research-101'),
+  },
+  {
+    title: 'Forming Fast Product Problem-solving Iterations',
+    summary: 'In this article, I am focusing on the decision-making process of an efficient product problem-solving cycle…',
+    minutes: 3, date: '2023-01-03', blogUrl: post('fast-product-iterations'),
+  },
+  {
+    title: 'Product Management for Autonomous Driving Platform',
+    summary: 'In addition to defining Operational Design Domains (ODDs) for autonomous trucks, a significant portion of product management work at…',
+    minutes: 6, date: '2022-07-01', blogUrl: post('autonomous-driving-platform-pm'),
+  },
+  {
+    title: 'Leaving Comments?',
+    summary: 'Look at the message input box, how elegant.',
+    minutes: 2, date: '2021-03-01', blogUrl: post('leaving-comments'),
+  },
 ];
 ```
 
@@ -330,7 +376,7 @@ console.log(failures === 0 ? '\nAll links OK' : `\n${failures} broken link(s)`);
 process.exit(failures === 0 ? 0 : 1);
 ```
 
-(LinkedIn returns 999 for bots — treat as reachable.)
+(LinkedIn returns 999 for bots — treat as reachable. Like the tests, this script imports `.ts` directly and needs Node ≥ 23 for native type stripping; on older Node run with `--experimental-strip-types`. This machine has Node 26.)
 
 - [ ] **Step 2: Run in default mode**
 
@@ -482,6 +528,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content={new URL('/images/anping.jpeg', Astro.site)} />
   </head>
   <body>
     <Nav active={active} />
@@ -687,9 +734,9 @@ git commit -m "feat: projects page with five case-study cards" -- src/components
 ### Task 9: Articles page
 
 **Files:**
-- Create: `src/components/ArticleRow.astro`, `src/pages/articles.astro`
+- Create: `src/components/ArticleCard.astro`, `src/pages/articles.astro`
 
-- [ ] **Step 1: Write ArticleRow.astro**
+- [ ] **Step 1: Write ArticleCard.astro** (card per archived Wix blog index: title, excerpt, author, date, read-time)
 
 ```astro
 ---
@@ -699,37 +746,43 @@ const formatted = new Date(article.date + 'T00:00:00').toLocaleDateString('en-US
   year: 'numeric', month: 'short', day: 'numeric',
 });
 ---
-<li style="border-bottom:1px solid #ececec;">
-  <a href={article.blogUrl} style="display:flex; justify-content:space-between; gap:24px; align-items:baseline; padding:22px 0;">
-    <span style="font-weight:600; font-size:18px;">{article.title}</span>
-    <span class="muted" style="font-size:14px; white-space:nowrap;">{formatted} →</span>
-  </a>
-</li>
+<article style="border:1px solid #ececec; padding:28px; display:flex; flex-direction:column; gap:12px;">
+  {article.image && <img src={article.image} alt="" loading="lazy" />}
+  <h2 style="font-size:19px; font-weight:600; line-height:1.35;">
+    <a href={article.blogUrl}>{article.title}</a>
+  </h2>
+  <p class="muted" style="margin:0; font-size:14.5px; flex:1;">{article.summary}</p>
+  <p class="muted" style="margin:0; font-size:13px;">Anping Wang · {formatted} · {article.minutes} min read</p>
+</article>
 ```
 
-- [ ] **Step 2: Write articles.astro**
+- [ ] **Step 2: Write articles.astro** (card grid)
 
 ```astro
 ---
 import Base from '../layouts/Base.astro';
-import ArticleRow from '../components/ArticleRow.astro';
+import ArticleCard from '../components/ArticleCard.astro';
 import { articles, site } from '../data/site-content';
 ---
 <Base title="Articles — Anping Wang" description="Articles by Anping Wang on product management, user research, and B2B product design. Full posts on theneverless.com." active="articles">
   <h1 style="font-size:40px; font-weight:700; margin:24px 0 8px;">Articles</h1>
-  <p class="muted" style="margin:0 0 16px;">Full articles live on <a class="accent" href={site.blogBase}>my blog</a>.</p>
-  <ul style="list-style:none; margin:0; padding:0;">
-    {articles.map((article) => <ArticleRow article={article} />)}
-  </ul>
+  <p class="muted" style="margin:0 0 24px;">Full articles live on <a class="accent" href={site.blogBase}>my blog</a>.</p>
+  <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:24px;">
+    {articles.map((article) => <ArticleCard article={article} />)}
+  </div>
 </Base>
 ```
 
-- [ ] **Step 3: Build, preview, commit**
+- [ ] **Step 3: Compare against the archived Wix blog index**
+
+Open `$ARCHIVE/raw/page_blog.html` (or render it in a browser) and compare card anatomy and layout. If the Wix cards carry thumbnails as an integral part of the design, populate `image` fields in `site-content.ts` from `$ARCHIVE/images/` (map media IDs via the raw HTML) — the card already renders `image` when present. Deliberate deviations (do NOT "fix"): all 9 articles shown; no category filter tabs.
+
+- [ ] **Step 4: Build, preview, commit**
 
 ```bash
 npm run build
-git add src/components/ArticleRow.astro src/pages/articles.astro
-git commit -m "feat: articles page linking to blog posts" -- src/components/ArticleRow.astro src/pages/articles.astro
+git add src/components/ArticleCard.astro src/pages/articles.astro
+git commit -m "feat: articles page with Wix-style excerpt cards" -- src/components/ArticleCard.astro src/pages/articles.astro
 ```
 
 ---

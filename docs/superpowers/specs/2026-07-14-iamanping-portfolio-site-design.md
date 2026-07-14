@@ -56,7 +56,7 @@ Key facts established during brainstorming:
 |---|---|---|
 | `/` | Hero: profile card + "Hello / I'm Anping" + bio + buttons (LINKEDIN outline pill, PROJECTS solid pill) | `content/pages/home.txt`, screenshot, `raw/page_home.html` |
 | `/projects` | 5 project cards with exact Wix copy and metric lines | `content/pages/projects.txt` |
-| `/articles` | 9 articles, dated list, one-line summaries | `content/posts/*.md` frontmatter |
+| `/articles` | 9 article cards (title, one-line excerpt, author, date, read-time) | `content/posts/*.md`, `content/pages/blog.txt`, `raw/page_blog.html` |
 | `/contact` | "Let's talk" heading + LinkedIn CTA | `content/pages/contact.txt` (heading only) |
 | `/404` | Simple not-found page linking home | — |
 
@@ -79,10 +79,22 @@ column below is planning shorthand, not render copy.
 
 ### Articles (9)
 
-All nine posts from `content/posts/` listed with title + date, each linking to
-its imported counterpart on theneverless.com. Exact blog URLs are resolved at
-implementation time from the blog repo's content collections (slugs differ
-from Wix slugs) and enforced by the link checker.
+Rendered as **cards matching the archived Wix blog index** (`raw/page_blog.html`
+/ `content/pages/blog.txt`): title, one-line excerpt, "Anping Wang", date,
+"N min read". Each card links to the imported counterpart on theneverless.com.
+Exact blog URLs are resolved at implementation time from the blog repo's
+content collections (slugs differ from Wix slugs) and enforced by the link
+checker.
+
+Two deliberate deviations from the Wix page, to confirm at fidelity check:
+- **All 9 articles are shown.** Wix publicly listed only 4 (the other 5 were
+  live but unlisted); hiding them serves no purpose on the new site.
+- **No category filter tabs** (Wix had All Posts / Product Management /
+  Thoughts). Nine items don't need filtering; can be added later.
+
+Excerpts: verbatim Wix auto-excerpts for the 4 publicly listed posts (from
+`blog.txt`), first body sentence (truncated, `…`) for the other 5. Read-time
+= ⌈words/300⌉, which reproduces all four Wix-displayed values.
 
 ## Visual specification (from screenshot + archived CSS)
 
