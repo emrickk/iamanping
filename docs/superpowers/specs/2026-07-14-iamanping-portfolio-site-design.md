@@ -92,8 +92,9 @@ Two deliberate deviations from the Wix page, to confirm at fidelity check:
 - **No category filter tabs** (Wix had All Posts / Product Management /
   Thoughts). Nine items don't need filtering; can be added later.
 
-Excerpts: verbatim Wix auto-excerpts for the 4 publicly listed posts (from
-`blog.txt`), first body sentence (truncated, `…`) for the other 5. Read-time
+Excerpts: Wix auto-excerpts for the 4 publicly listed posts (from `blog.txt`,
+truncated at card length with `…`), first body sentence (truncated, `…`) for
+the other 5. Read-time
 = ⌈words/300⌉, which reproduces all four Wix-displayed values.
 
 ## Visual specification (from screenshot + archived CSS)
@@ -129,7 +130,7 @@ Excerpts: verbatim Wix auto-excerpts for the 4 publicly listed posts (from
 - Layout:
   - `src/pages/{index,projects,articles,contact,404}.astro`
   - `src/layouts/Base.astro` (head/meta/og tags, header, footer)
-  - `src/components/{Nav,ProjectCard,ArticleRow}.astro`
+  - `src/components/{Nav,ProjectCard,ArticleCard}.astro`
   - `src/data/site-content.ts` — single typed data file: projects and articles
     as arrays of `{ title, summary, metric?, image?, blogUrl, date? }`. Pages
     render data; future edits touch one file.
