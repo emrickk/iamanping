@@ -12,6 +12,7 @@ test('5 projects, all fields present', () => {
   for (const p of projects) {
     assert.ok(p.title.length > 0);
     assert.ok(p.paragraphs.length >= 1);
+    assert.ok(p.paragraphs.every((s) => s.trim().length > 0));
     assert.match(p.blogUrl, /^https:\/\/theneverless\.com\/posts\/[a-z0-9-]+\/$/);
     assert.ok(p.image.endsWith('.png') || p.image.endsWith('.jpeg'));
     assert.equal(typeof p.pending, 'boolean');
@@ -29,6 +30,11 @@ test('9 articles, dated, sorted newest first, with card fields', () => {
   }
   const dates = articles.map((a) => a.date);
   assert.deepEqual(dates, [...dates].sort().reverse());
+});
+
+test('blog URLs are unique across projects and articles', () => {
+  const slugs = [...projects, ...articles].map((x) => x.blogUrl);
+  assert.equal(new Set(slugs).size, slugs.length, 'duplicate blogUrl');
 });
 
 test('no zero-width characters in copy', () => {

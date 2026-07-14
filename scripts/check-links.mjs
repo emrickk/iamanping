@@ -10,7 +10,7 @@ const targets = [
 let failures = 0;
 for (const url of targets) {
   try {
-    const res = await fetch(url, { method: 'GET', redirect: 'follow' });
+    const res = await fetch(url, { method: 'GET', redirect: 'follow', signal: AbortSignal.timeout(10000) });
     const ok = res.status === 200 || (url.includes('linkedin.com') && res.status === 999);
     console.log(`${ok ? 'OK ' : 'FAIL'} ${res.status} ${url}`);
     if (!ok) failures++;
