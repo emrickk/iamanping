@@ -1,8 +1,16 @@
 {
   "name": "iamanping",
+  "description": "Personal portfolio site of Anping Wang, built with Astro and deployed to GitHub Pages.",
   "type": "module",
   "version": "1.0.0",
   "private": true,
+  "license": "MIT",
+  "author": "Anping Wang",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emrickk/iamanping.git"
+  },
+  "homepage": "https://iamanping.com",
   "engines": {
     "node": ">=23.6.0"
   },
