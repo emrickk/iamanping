@@ -1,6 +1,28 @@
 ---
 import Base from '../layouts/Base.astro';
+import { site } from '../data/site-content';
 ---
-<Base title="Anping Wang — Product Management and Design" description="Portfolio of Anping Wang, product manager." active="about">
-  <h1>placeholder</h1>
+<Base title="Anping Wang — Product Management and Design" description="Anping Wang — product manager for autonomous driving, AI, and gaming products. Projects, articles, and ways to get in touch." active="about">
+  <div class="hero-grid">
+    <aside class="profile-card">
+      <div class="profile-card-body">
+        <img src="/images/anping.jpeg" alt="Portrait of Anping Wang" width="140" height="140" class="profile-photo" />
+        <p class="profile-name">Anping<br />Wang</p>
+        <div class="profile-rule" aria-hidden="true"></div>
+        <p class="profile-tagline">{site.tagline}</p>
+      </div>
+      <div class="profile-card-footer">
+        <a href={site.linkedin} rel="me noopener noreferrer" target="_blank" aria-label="Anping Wang on LinkedIn">in</a>
+      </div>
+    </aside>
+    <section>
+      <h1 class="display">Hello</h1>
+      <p class="hero-subhead">I'm Anping</p>
+      <p class="hero-buttons">
+        <a class="pill pill--outline" href={site.linkedin} rel="me noopener noreferrer" target="_blank">LinkedIn</a>
+        <a class="pill pill--solid" href="/projects/">Projects</a>
+      </p>
+      {site.bio.map((para) => <p class="hero-bio">{para}</p>)}
+    </section>
+  </div>
 </Base>
