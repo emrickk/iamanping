@@ -99,9 +99,6 @@ h1, h2, h3 { color: var(--black); line-height: 1.15; margin: 0; }
   border-bottom: 1px solid #ececec;
 }
 .project-card img { border: 1px solid #ececec; height: 240px; object-fit: cover; }
-/* red-packet.png is a wide banner; the Wix original cropped to the phone-mockup
-   portion on the right side of the image rather than the center. */
-.project-card img[src*="red-packet"] { object-position: 95% center; }
 .project-card h2 { font-size: 24px; font-weight: 600; margin-bottom: 12px; }
 .project-card p { margin: 0 0 12px; max-width: 560px; }
 .read-more { font-weight: 600; }
@@ -121,6 +118,7 @@ h1, h2, h3 { color: var(--black); line-height: 1.15; margin: 0; }
   gap: 12px;
 }
 .article-card h2 { font-size: 19px; font-weight: 600; line-height: 1.35; }
+.article-card h2 a:hover { color: var(--blue); }
 .article-summary { margin: 0; font-size: 14.5px; flex: 1; }
 .article-meta { margin: 0; font-size: 13px; }
 .articles-grid {

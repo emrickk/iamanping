@@ -3,7 +3,13 @@ import type { Project } from '../data/site-content';
 const { project } = Astro.props as { project: Project };
 ---
 <article class="project-card">
-  <img src={project.image} alt={`${project.title} screenshot`} width="320" loading="lazy" />
+  <img
+    src={project.image}
+    alt={project.alt ?? project.title}
+    width="320"
+    loading="lazy"
+    style={project.objectPosition ? `object-position: ${project.objectPosition}` : undefined}
+  />
   <div>
     <h2>{project.title}</h2>
     {project.paragraphs.map((para) => <p>{para}</p>)}

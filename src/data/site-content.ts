@@ -16,6 +16,8 @@ export interface Project {
   image: string;
   blogUrl: string;
   pending: boolean;
+  alt?: string;
+  objectPosition?: string;
 }
 
 const post = (slug: string) => `${site.blogBase}/posts/${slug}/`;
@@ -30,6 +32,8 @@ export const projects: Project[] = [
     image: '/images/aiyou.png',
     blogUrl: post('aiyou-user-growth'),
     pending: false,
+    alt: 'Aiyou app promo graphic',
+    objectPosition: 'center 20%',
   },
   {
     title: 'WeChat Red Packet Assistant',
@@ -40,6 +44,8 @@ export const projects: Project[] = [
     image: '/images/red-packet.png',
     blogUrl: post('wechat-red-packet-assistant'),
     pending: false,
+    alt: 'WeChat Red Packet Assistant banner',
+    objectPosition: '95% center',
   },
   {
     title: 'Revitalizing 360 Mobile Security',
@@ -50,6 +56,7 @@ export const projects: Project[] = [
     image: '/images/360-security.png',
     blogUrl: post('revitalizing-360-mobile-security'),
     pending: false,
+    alt: '360 Mobile Security app render',
   },
   {
     title: 'Missing Children Alert System',
@@ -59,6 +66,10 @@ export const projects: Project[] = [
     image: '/images/missing-children.png',
     blogUrl: post('missing-children-alert-system'),
     pending: false,
+    alt: 'Missing children alert system poster',
+    // Alert-card overlays sit on the right side of the source image;
+    // right-anchored crop keeps all three notifications readable.
+    objectPosition: 'right center',
   },
   {
     title: 'TuSimple',
@@ -69,6 +80,7 @@ export const projects: Project[] = [
     image: '/images/tusimple.png',
     blogUrl: post('tusimple-pm-methodology'),
     pending: false,
+    alt: 'TuSimple autonomous truck cockpit',
   },
 ];
 
