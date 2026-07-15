@@ -1,0 +1,13 @@
+---
+import type { Article } from '../data/site-content';
+const { article } = Astro.props as { article: Article };
+const formatted = new Date(article.date + 'T00:00:00').toLocaleDateString('en-US', {
+  year: 'numeric', month: 'short', day: 'numeric',
+});
+---
+<article class="article-card">
+  {article.image && <img src={article.image} alt="" loading="lazy" />}
+  <h2><a href={article.blogUrl}>{article.title}</a></h2>
+  <p class="muted article-summary">{article.summary}</p>
+  <p class="muted article-meta">Anping Wang · {formatted} · {article.minutes} min read</p>
+</article>

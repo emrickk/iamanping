@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { articles, site } from '../data/site-content';
+---
+<Base title="Articles — Anping Wang" description="Articles by Anping Wang on product management, user research, and B2B product design. Full posts on theneverless.com." active="articles">
+  <h1 class="page-title">Articles</h1>
+  <p class="muted articles-note">Full articles live on <a class="accent" href={site.blogBase}>my blog</a>.</p>
+  <div class="articles-grid">
+    {articles.map((article) => <ArticleCard article={article} />)}
+  </div>
+</Base>
