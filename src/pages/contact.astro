@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site-content';
+---
+<Base title="Let's Talk — Anping Wang" description="Get in touch with Anping Wang on LinkedIn." active="contact">
+  <div class="simple-page">
+    <h1 class="display simple-title">Let's talk</h1>
+    <p class="simple-copy">The fastest way to reach me is LinkedIn — I read every message.</p>
+    <a class="pill pill--solid" href={site.linkedin} rel="me noopener noreferrer" target="_blank">Message me on LinkedIn</a>
+  </div>
+</Base>
