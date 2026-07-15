@@ -37,3 +37,29 @@ h1, h2, h3 { color: var(--black); line-height: 1.15; margin: 0; }
 
 .accent { color: var(--blue); }
 .muted { color: var(--gray); }
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 28px;
+  padding-bottom: 28px;
+}
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand-mark { width: 14px; height: 14px; background: var(--blue); display: inline-block; }
+.brand-name { font-weight: 700; font-size: 18px; color: var(--black); }
+.brand-role { font-size: 14px; }
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+}
+
+@media (max-width: 640px) {
+  .site-header { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .brand-role { display: none; }
+  .site-nav ul { flex-wrap: wrap; gap: 16px 24px; }
+}

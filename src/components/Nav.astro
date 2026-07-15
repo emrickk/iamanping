@@ -7,14 +7,14 @@ const items = [
   { id: 'contact', label: "Let's Talk", href: '/contact/' },
 ];
 ---
-<header class="container" style="display:flex; justify-content:space-between; align-items:center; padding-top:28px; padding-bottom:28px;">
-  <a href="/" style="display:flex; align-items:center; gap:10px;">
-    <span style="width:14px; height:14px; background:var(--blue); display:inline-block;" aria-hidden="true"></span>
-    <span style="font-weight:700; font-size:18px; color:var(--black);">Anping Wang</span>
-    <span class="muted" style="font-size:14px;">/&nbsp; Product Manager</span>
+<header class="container site-header">
+  <a href="/" class="brand">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span class="brand-name">Anping Wang</span>
+    <span class="muted brand-role">/&nbsp; Product Manager</span>
   </a>
-  <nav aria-label="Main">
-    <ul style="list-style:none; display:flex; gap:32px; margin:0; padding:0; font-size:15px;">
+  <nav class="site-nav" aria-label="Main">
+    <ul>
       {items.map((item) => (
         <li>
           <a
