@@ -1,0 +1,9 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects } from '../data/site-content';
+---
+<Base title="Projects — Anping Wang" description="Product projects by Anping Wang: Aiyou, WeChat Red Packet Assistant, 360 Mobile Security, Missing Children Alert System, and TuSimple." active="projects">
+  <h1 class="page-title">Projects</h1>
+  {projects.map((project) => <ProjectCard project={project} />)}
+</Base>

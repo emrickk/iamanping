@@ -1,0 +1,12 @@
+---
+import type { Project } from '../data/site-content';
+const { project } = Astro.props as { project: Project };
+---
+<article class="project-card">
+  <img src={project.image} alt={`${project.title} screenshot`} width="320" loading="lazy" />
+  <div>
+    <h2>{project.title}</h2>
+    {project.paragraphs.map((para) => <p>{para}</p>)}
+    <a class="accent read-more" href={project.blogUrl}>Read More →</a>
+  </div>
+</article>

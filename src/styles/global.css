@@ -87,3 +87,26 @@ h1, h2, h3 { color: var(--black); line-height: 1.15; margin: 0; }
   .hero-grid { display: block; }
   .profile-card { max-width: 300px; margin: 0 auto 40px; }
 }
+
+.page-title { font-size: 40px; font-weight: 700; margin: 24px 0 8px; }
+
+.project-card {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 40px;
+  align-items: center;
+  padding: 40px 0;
+  border-bottom: 1px solid #ececec;
+}
+.project-card img { border: 1px solid #ececec; height: 240px; object-fit: cover; }
+/* red-packet.png is a wide banner; the Wix original cropped to the phone-mockup
+   portion on the right side of the image rather than the center. */
+.project-card img[src*="red-packet"] { object-position: 95% center; }
+.project-card h2 { font-size: 24px; font-weight: 600; margin-bottom: 12px; }
+.project-card p { margin: 0 0 12px; max-width: 560px; }
+.read-more { font-weight: 600; }
+
+@media (max-width: 760px) {
+  .project-card { display: block; }
+  .project-card img { margin-bottom: 20px; }
+}
